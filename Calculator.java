@@ -32,6 +32,16 @@ class Calculator extends JFrame {
             btn[i].addActionListener(new ButtonPush());
         }
 
+        //make a text field.
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new GridLayout(2, 1));
+        JTextArea textA = new JTextArea();
+        textPanel.add(textA);
+        textA.setEditable(false);
+        JTextField textF = new JTextField();
+        textPanel.add(textF);
+        
+        getContentPane().add(textPanel, BorderLayout.NORTH);
         getContentPane().add(panel, BorderLayout.CENTER);
     }
 
