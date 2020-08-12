@@ -5,7 +5,7 @@ import java.awt.event.*;//import for the button event.
 class Calculator extends JFrame {
     private String btnW[] = {"7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", "C", "=", "+"};
     private JButton[] btn = new JButton[16];
-
+    private JTextField textF;
     public static void main(String args[]) {
         //make a new instance of JFrame.
         Calculator frame = new Calculator( "Calculator" );
@@ -34,11 +34,9 @@ class Calculator extends JFrame {
 
         //make a text field.
         JPanel textPanel = new JPanel();
-        textPanel.setLayout(new GridLayout(2, 1));
-        JTextArea textA = new JTextArea();
-        textPanel.add(textA);
-        textA.setEditable(false);
-        JTextField textF = new JTextField();
+        textPanel.setLayout(new GridLayout(1, 1));
+        textF = new JTextField();
+        textF.setEditable(false);
         textPanel.add(textF);
         
         getContentPane().add(textPanel, BorderLayout.NORTH);
@@ -53,8 +51,7 @@ class Calculator extends JFrame {
                     text = btn[i].getText();
                 }
             }
-            JLabel label = new JLabel(text);
-            JOptionPane.showMessageDialog(Calculator.this, label);
+            
         }
     }
     
