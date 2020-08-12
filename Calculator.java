@@ -1,57 +1,51 @@
 import javax.swing.*;
 import java.awt.*;//import for border layout.
-class Calculator {
+import java.awt.event.*;//import for the button event.
+
+class Calculator extends JFrame {
+    private String btnW[] = {"7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", "C", "=", "+"};
+    private JButton[] btn = new JButton[16];
+
     public static void main(String args[]) {
         //make a new instance of JFrame.
-        JFrame frame = new JFrame( "Calculator" );
+        Calculator frame = new Calculator( "Calculator" );
+        //show a frame.
+        frame.setVisible(true);
+    }
+
+    Calculator(String title) {
+        //set a title
+        setTitle(title);
         //set a frame position and size.
-        frame.setBounds( 100, 100, 600, 400 );
+        setBounds( 100, 100, 600, 400 );
         //set a close button.
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
         //make a panel.
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(4, 4));
 
         //make a new instance of JButton class.
-        JButton btn7 = new JButton("7");
-        panel.add(btn7);
-        JButton btn8 = new JButton("8");
-        panel.add(btn8);
-        JButton btn9 = new JButton("9");
-        panel.add(btn9);
-        JButton btnDivision = new JButton("/");
-        panel.add(btnDivision);
+        for (int i = 0; i < 16; i++) {
+            btn[i] = new JButton(btnW[i]);
+            panel.add(btn[i]);
+            btn[i].addActionListener(new ButtonPush());
+        }
 
-        JButton btn4 = new JButton("4");
-        panel.add(btn4);
-        JButton btn5 = new JButton("5");
-        panel.add(btn5);
-        JButton btn6 = new JButton("6");
-        panel.add(btn6);
-        JButton btnMulti = new JButton("*");
-        panel.add(btnMulti);
-
-        JButton btn1 = new JButton("1");
-        panel.add(btn1);
-        JButton btn2 = new JButton("2");
-        panel.add(btn2);
-        JButton btn3 = new JButton("3");
-        panel.add(btn3);
-        JButton btnSubtraction = new JButton("-");
-        panel.add(btnSubtraction);
-
-        JButton btn0 = new JButton("0");
-        panel.add(btn0);
-        JButton btnC = new JButton("C");
-        panel.add(btnC);
-        JButton btnEqual = new JButton("=");
-        panel.add(btnEqual);
-        JButton btnAdd = new JButton("+");
-        panel.add(btnAdd);
-
-        frame.getContentPane().add(panel, BorderLayout.CENTER);
-        //show a frame.
-        frame.setVisible(true);
+        getContentPane().add(panel, BorderLayout.CENTER);
     }
+
+    class ButtonPush implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String text = " ";
+            for (int i = 0; i < 16; i++) {
+                if (btn[i] == e.getSource()) {
+                    text = btn[i].getText();
+                }
+            }
+            JLabel label = new JLabel(text);
+            JOptionPane.showMessageDialog(Calculator.this, label);
+        }
+    }
+    
 }
