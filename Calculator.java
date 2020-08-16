@@ -2,14 +2,13 @@ import javax.swing.*;
 import java.awt.*;//import for border layout.
 import java.awt.event.*;//import for the button event.
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class Calculator extends JFrame {
     private String btnW[] = {"7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", "C", "=", "+"};
     private JButton[] btn = new JButton[16];
     private JTextField textF;
     private ArrayList<String> formula = new ArrayList<String>();
-    private String preType = "ExSym";
+    private String preType = "";
     private String nowType = "";
     public static void main(String args[]) {
         //make a new instance of JFrame.
@@ -50,7 +49,7 @@ class Calculator extends JFrame {
 
     class ButtonPush implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            String text = " ";
+            String text = "";
             String print = "";
             for (int i = 0; i < 16; i++) {
                 if (btn[i] == e.getSource()) {
@@ -63,15 +62,16 @@ class Calculator extends JFrame {
             if (text == "C") {
                 formula.clear();
             } else if (text == "=") {
-                print = String.valueOf(calculation());
-                formula.clear();
-                
-            } else { 
+                if (!(formula.size() == 0)) {
+                    print = String.valueOf(calculation());
+                    formula.clear();
+                }
+            } else if (!(formula.size() == 0 && nowType == "Sym")) {
                 if (preType == "Num" && nowType == "Num") {
                     String numA = formula.get(formula.size() - 1);
                     formula.remove(formula.size() - 1);
                     text = numA + text;
-                } else if (preType == "Sym" && nowType == "Sym") {
+                } else if ( preType == "Sym" && nowType == "Sym") {
                     formula.remove(formula.size() - 1);
                 }
 
@@ -95,8 +95,6 @@ class Calculator extends JFrame {
         String type;
         if (Character.isDigit(x)) {
             type = "Num";
-        } else if (x == 'C' || x == '=') {
-            type = "ExSym";
         } else {
             type = "Sym";
         }
